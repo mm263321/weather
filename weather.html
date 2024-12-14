@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather App</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to bottom right, #1e3c72, #2a5298);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      transition: background 0.5s ease;
+      padding: 20px;
+    }
+
+    .app-wrap {
+      width: 100%;
+      max-width: 500px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      text-align: center;
+    }
+
+    header {
+      margin-bottom: 20px;
+    }
+
+    header input {
+      width: 100%;
+      padding: 15px;
+      font-size: 16px;
+      border: none;
+      border-radius: 30px;
+      outline: none;
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      transition: 0.3s;
+    }
+
+    header input:focus {
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    header input::placeholder {
+      color: #ddd;
+    }
+
+    .location {
+      margin-bottom: 10px;
+    }
+
+    .location__city {
+      font-size: 26px;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+
+    .location__date {
+      font-size: 14px;
+      font-weight: 300;
+    }
+
+    .current-weather {
+      margin-top: 20px;
+    }
+
+    .current-weather__icon img {
+      width: 100px;
+      margin-bottom: 10px;
+    }
+
+    .current-weather__temp {
+      font-size: 64px;
+      font-weight: 700;
+    }
+
+    .current-weather__condition {
+      font-size: 20px;
+      font-weight: 500;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .current-weather__details {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 20px;
+      font-size: 14px;
+    }
+
+    .detail {
+      text-align: center;
+    }
+
+    .forecast {
+      margin-top: 30px;
+      padding: 15px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 10px;
+    }
+
+    .forecast h3 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 15px;
+    }
+
+    .forecast__item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .forecast__item:last-child {
+      border-bottom: none;
+    }
+
+    .forecast__day {
+      font-weight: 600;
+    }
+
+    .forecast__icon img {
+      width: 40px;
+    }
+
+    .forecast__temp {
+      font-size: 16px;
+    }
+
+    .forecast__temp span {
+      margin: 0 5px;
+      font-weight: 300;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .error {
+      color: red;
+      font-weight: 600;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="app-wrap">
+    <header>
+      <input type="text" autocomplete="off" class="search-box" placeholder="Search for a city...">
+    </header>
+    <main>
+      <section class="location">
+        <div class="location__city">New York, US</div>
+        <div class="location__date">Wednesday 22 July 2020</div>
+      </section>
+      <div class="current-weather">
+        <div class="current-weather__icon">
+          <img src="https://openweathermap.org/img/wn/01d@2x.png" alt="Weather Icon">
+        </div>
+        <div class="current-weather__temp">15<span>°C</span></div>
+        <div class="current-weather__condition">Sunny</div>
+        <div class="current-weather__details">
+          <div class="detail">
+            <span>Humidity</span>
+            <p>60%</p>
+          </div>
+          <div class="detail">
+            <span>Wind</span>
+            <p>12 km/h</p>
+          </div>
+          <div class="detail">
+            <span>Pressure</span>
+            <p>1012 hPa</p>
+          </div>
+        </div>
+      </div>
+      <div class="forecast">
+        <h3>3-Day Forecast</h3>
+        <div class="forecast__item">
+          <div class="forecast__day">Thursday</div>
+          <div class="forecast__icon"><img src="https://openweathermap.org/img/wn/02d@2x.png" alt="Forecast Icon"></div>
+          <div class="forecast__temp">22°C <span>/</span> 15°C</div>
+        </div>
+        <div class="forecast__item">
+          <div class="forecast__day">Friday</div>
+          <div class="forecast__icon"><img src="https://openweathermap.org/img/wn/03d@2x.png" alt="Forecast Icon"></div>
+          <div class="forecast__temp">20°C <span>/</span> 14°C</div>
+        </div>
+        <div class="forecast__item">
+          <div class="forecast__day">Saturday</div>
+          <div class="forecast__icon"><img src="https://openweathermap.org/img/wn/01d@2x.png" alt="Forecast Icon"></div>
+          <div class="forecast__temp">25°C <span>/</span> 18°C</div>
+        </div>
+      </div>
+      <div class="error" id="error-message"></div>
+    </main>
+  </div>
+
+  <script>
+    const api = {
+      key: "fcc8de7015bbb202209bbf0261babf4c",
+      base: "https://api.openweathermap.org/data/2.5/"
+    };
+
+    const searchbox = document.querySelector('.search-box');
+    const errorMessage = document.getElementById('error-message');
+
+    searchbox.addEventListener('keypress', (e) => {
+      if (e.keyCode === 13) {
+        getWeather(searchbox.value);
+      }
+    });
+
+    function getWeather(query) {
+      fetch(`${api.base}weather?q=${query}&units=metric&APPID=${api.key}`)
+        .then(response => response.json())
+        .then(weather => {
+          if (weather.cod !== 200) {
+            throw new Error(weather.message);
+          }
+          displayWeather(weather);
+          getForecast(query);
+        })
+        .catch(err => {
+          errorMessage.textContent = err.message;
+        });
+    }
+
+    function displayWeather(weather) {
+      errorMessage.textContent = '';
+      document.querySelector('.location__city').textContent = `${weather.name}, ${weather.sys.country}`;
+      document.querySelector('.current-weather__temp').innerHTML = `${Math.round(weather.main.temp)}<span>°C</span>`;
+      document.querySelector('.current-weather__condition').textContent = weather.weather[0].main;
+      document.querySelector('.current-weather__icon img').src = `https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`;
+      document.querySelector('.detail:nth-child(1) p').textContent = `${weather.main.humidity}%`;
+      document.querySelector('.detail:nth-child(2) p').textContent = `${Math.round(weather.wind.speed)} km/h`;
+      document.querySelector('.detail:nth-child(3) p').textContent = `${weather.main.pressure} hPa`;
+    }
+
+    function getForecast(query) {
+      fetch(`${api.base}forecast?q=${query}&units=metric&APPID=${api.key}`)
+        .then(response => response.json())
+        .then(forecast => {
+          const forecastItems = document.querySelectorAll('.forecast__item');
+          for (let i = 0; i < 3; i++) {
+            const dayData = forecast.list[i * 8]; // Approx every 24 hours
+            const date = new Date(dayData.dt_txt);
+            forecastItems[i].querySelector('.forecast__day').textContent = date.toLocaleDateString('en-US', { weekday: 'long' });
+            forecastItems[i].querySelector('.forecast__icon img').src = `https://openweathermap.org/img/wn/${dayData.weather[0].icon}@2x.png`;
+            forecastItems[i].querySelector('.forecast__temp').innerHTML = `${Math.round(dayData.main.temp_max)}°C <span>/</span> ${Math.round(dayData.main.temp_min)}°C`;
+          }
+        });
+    }
+  </script>
+</body>
+</html>
